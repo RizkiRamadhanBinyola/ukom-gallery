@@ -47,23 +47,15 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     if (isLoggedIn()) {
         // Tampilkan navigasi untuk pengguna yang sudah login
     ?>
-        <!-- Tampilkan navigasi untuk pengguna yang sudah login -->
-        <!-- Start Navbar -->
-        <!-- <div class="pinterest">
-            <div class="left">
-                <a href="#" class="logo"><i class="fab fa-pinterest"></i></a>
-                <a class="nav-link home" href="?url=home">Home</a>
-                <a class="nav-link" href="?url=upload">Upload</a>
-                <a class="nav-link" href="?url=album">Album</a>
-            </div>
-            <div class="right">
-                <div class="search">
-                    <i class="fas fa-search"></i>
-                    <input type="search" name="" placeholder="Search..." id="">
-                </div>
+        <nav class="nav-home sticky-top">
+            <i class="uil uil-bars navOpenBtn"></i>
+            <a href="?url=home" class="logo">Galernih</a>
 
-                <a href="#" class="items"><i class="fas fa-bell"></i></a>
-
+            <ul class="nav-links">
+                <i class="uil uil-times navCloseBtn"></i>
+                <li><a href="?url=home">Home</a></li>
+                <li><a href="?url=upload">Upload</a></li>
+                <li><a href="?url=album">Album</a></li>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?= ucwords($_SESSION['username']) ?>
@@ -74,20 +66,6 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
                         <li><a class="dropdown-item" href="?url=logout">Logout</a></a></li>
                     </ul>
                 </div>
-            </div>
-        </div> -->
-
-        <nav class="nav sticky-top">
-            <i class="uil uil-bars navOpenBtn"></i>
-            <a href="#" class="logo">Webster</a>
-
-            <ul class="nav-links">
-                <i class="uil uil-times navCloseBtn"></i>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
             </ul>
 
             <i class="uil uil-search search-icon" id="searchIcon"></i>
@@ -100,34 +78,16 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     <?php
     } else {
         // Tampilkan navigasi untuk pengguna yang belum login
-    ?>
-        <!-- Start Navbar -->
-        <!-- <div class="pinterest">
-            <div class="left">
-                <a href="#" class="logo"><i class="fab fa-pinterest"></i></a>
-                <a class="nav-link home" href="?url=home">Home</a>
-                    <a class="nav-link" href="login.php">Login</a>
-                    <a class="nav-link" href="daftar.php">Daftar</a>
-            </div>
-            <div class="right">
-                <div class="search">
-                    <i class="fas fa-search"></i>
-                    <input type="search" name="" placeholder="Search..." id="">
-                </div>
-            </div>
-        </div> -->
-
-        <nav class="nav sticky-top">
+    ?>        
+        <nav class="nav-home sticky-top">
             <i class="uil uil-bars navOpenBtn"></i>
-            <a href="#" class="logo">Webster</a>
+            <a href="#" class="logo">Galernih</a>
 
             <ul class="nav-links">
                 <i class="uil uil-times navCloseBtn"></i>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="?url=home">Home</a></li>
+                <li><a href="login">Login</a></li>
+                <li><a href="daftar">Daftar</a></li>
             </ul>
 
             <i class="uil uil-search search-icon" id="searchIcon"></i>
@@ -163,10 +123,11 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     ?>
 
 
+    
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        const nav = document.querySelector(".nav"),
+        const nav = document.querySelector(".nav-home"),
             searchIcon = document.querySelector("#searchIcon"),
             navOpenBtn = document.querySelector(".navOpenBtn"),
             navCloseBtn = document.querySelector(".navCloseBtn");

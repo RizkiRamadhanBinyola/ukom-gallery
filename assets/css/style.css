@@ -7,11 +7,17 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+#comment {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
 body {
   background: #f0faff;
 }
 
-.nav {
+.nav-home {
   /* position: fixed; */
   top: 0;
   left: 0;
@@ -21,13 +27,13 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.nav,
-.nav .nav-links {
+.nav-home,
+.nav-home .nav-links {
   display: flex;
   align-items: center;
 }
 
-.nav {
+.nav-home {
   justify-content: space-between;
   margin-bottom: 50px;
 }
@@ -37,33 +43,33 @@ a {
   text-decoration: none;
 }
 
-.nav .logo {
+.nav-home .logo {
   font-size: 22px;
   font-weight: 500;
 }
 
-.nav .nav-links {
+.nav-home .nav-links {
   column-gap: 20px;
   list-style: none;
   margin-top: 10px;
 }
 
-.nav .nav-links a {
+.nav-home .nav-links a {
   transition: all 0.2s linear;
 }
 
-.nav.openSearch .nav-links a {
+.nav-home.openSearch .nav-links a {
   opacity: 0;
   pointer-events: none;
 }
 
-.nav .search-icon {
+.nav-home .search-icon {
   color: #353842;
   font-size: 20px;
   cursor: pointer;
 }
 
-.nav .search-box {
+.nav-home .search-box {
   position: absolute;
   right: 250px;
   height: 45px;
@@ -74,7 +80,7 @@ a {
   transition: all 0.2s linear;
 }
 
-.nav.openSearch .search-box {
+.nav-home.openSearch .search-box {
   opacity: 1;
   pointer-events: auto;
 }
@@ -99,28 +105,28 @@ a {
   padding: 0 15px 0 45px;
 }
 
-.nav .navOpenBtn,
-.nav .navCloseBtn {
+.nav-home .navOpenBtn,
+.nav-home .navCloseBtn {
   display: none;
 }
 
 /* responsive */
 @media screen and (max-width: 1160px) {
-  .nav {
+  .nav-home {
       padding: 15px 100px;
   }
 
-  .nav .search-box {
+  .nav-home .search-box {
       right: 150px;
   }
 }
 
 @media screen and (max-width: 950px) {
-  .nav {
+  .nav-home {
       padding: 15px 50px;
   }
 
-  .nav .search-box {
+  .nav-home .search-box {
       right: 100px;
       max-width: 400px;
   }
@@ -128,16 +134,16 @@ a {
 
 @media screen and (max-width: 768px) {
 
-  .nav .navOpenBtn,
-  .nav .navCloseBtn {
+  .nav-home .navOpenBtn,
+  .nav-home .navCloseBtn {
       display: block;
   }
 
-  .nav {
+  .nav-home {
       padding: 15px 20px;
   }
 
-  .nav .nav-links {
+  .nav-home .nav-links {
       position: fixed;
       top: 0;
       left: -100%;
@@ -153,17 +159,17 @@ a {
       z-index: 100;
   }
 
-  .nav.openNav .nav-links {
+  .nav-home.openNav .nav-links {
       left: 0;
   }
 
-  .nav .navOpenBtn {
+  .nav-home .navOpenBtn {
       color: #353842;
       font-size: 20px;
       cursor: pointer;
   }
 
-  .nav .navCloseBtn {
+  .nav-home .navCloseBtn {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -172,7 +178,7 @@ a {
       cursor: pointer;
   }
 
-  .nav .search-box {
+  .nav-home .search-box {
       top: calc(100% + 10px);
       max-width: calc(100% - 20px);
       right: 50%;
@@ -217,4 +223,76 @@ a {
   .masonry {
     columns: 1;
   }
+}
+
+.content {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.content .content-overlay {
+  border-radius: 15px;
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  height: 99%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.content:hover .content-overlay{
+  opacity: 1;
+}
+
+.content-image{
+  width: 100%;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content:hover .content-details{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.content-details h5{
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
+.content-details p{
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.fadeIn-bottom{
+  top: 80%;
 }
