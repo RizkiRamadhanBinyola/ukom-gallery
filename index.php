@@ -16,12 +16,12 @@ $url = isset($_GET['url']) ? $_GET['url'] : 'home';
 // Jika pengguna belum login dan mencoba mengakses halaman yang dilindungi
 if (!isLoggedIn() && in_array($url, $protected_pages)) {
     // Redirect ke halaman login
-?>
+    ?>
     <script>
         alert("HARUS LOGIN TERLEBIH DAHULU!");
         window.open('login.php', '_self');
     </script>
-<?php
+    <?php
     exit(); // Hentikan eksekusi skrip setelah mengalihkan
 }
 
@@ -35,9 +35,16 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ukom</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel=" stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -46,7 +53,7 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     // Cek apakah pengguna sudah login
     if (isLoggedIn()) {
         // Tampilkan navigasi untuk pengguna yang sudah login
-    ?>
+        ?>
         <nav class="nav-home sticky-top">
             <i class="uil uil-bars navOpenBtn"></i>
             <a href="?url=home" class="logo">Galernih</a>
@@ -69,16 +76,22 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
             </ul>
 
             <i class="uil uil-search search-icon" id="searchIcon"></i>
-            <div class="search-box">
+            <!-- Di dalam tag form, ubah action menjadi "?url=search" dan method menjadi "GET" -->
+            <form action="?url=search" method="GET" class="search-box">
                 <i class="uil uil-search search-icon"></i>
-                <input type="text" placeholder="Search here..." />
-            </div>
+                <input type="text" name="q" placeholder="Search here..." />
+                <button type="submit">Search</button>
+            </form>
+
+
+
+
         </nav>
         <!-- End Navbar -->
-    <?php
+        <?php
     } else {
         // Tampilkan navigasi untuk pengguna yang belum login
-    ?>        
+        ?>
         <nav class="nav-home sticky-top">
             <i class="uil uil-bars navOpenBtn"></i>
             <a href="#" class="logo">Galernih</a>
@@ -91,16 +104,21 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
             </ul>
 
             <i class="uil uil-search search-icon" id="searchIcon"></i>
-            <div class="search-box">
+            <!-- Di dalam tag form, ubah action menjadi "?url=search" dan method menjadi "GET" -->
+            <form action="?url=search" method="GET" class="search-box">
                 <i class="uil uil-search search-icon"></i>
-                <input type="text" placeholder="Search here..." />
-            </div>
+                <input type="text" name="q" placeholder="Search here..." />
+                <button type="submit">Search</button>
+            </form>
+
+
+
         </nav>
 
         <!-- End Navbar -->
 
 
-    <?php
+        <?php
     }
     // Tampilkan konten sesuai URL
     if ($url == 'home') {
@@ -113,6 +131,8 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
         include 'page/album.php';
     } elseif ($url == 'detail') {
         include 'page/detail.php';
+    } elseif ($url == 'search') {
+        include 'page/search.php';
     } elseif ($url == 'logout') {
         session_destroy();
         header("Location: ?url=home");
@@ -123,7 +143,7 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     ?>
 
 
-    
+
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>

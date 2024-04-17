@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div class="row">
-        <div class="col-5">
+        <div class="col-md-4 col-sm-4 col-xs-12 mb-5">
             <div class="card">
                 <div class="card-body">
                     <h4>Halaman Album</h4>
@@ -41,21 +41,45 @@
                         // Periksa apakah ada foto yang terkait dengan album yang akan dihapus
                         $check_photos = mysqli_query($conn, "SELECT * FROM foto WHERE Id_Album = '$albumId'");
                         if(mysqli_num_rows($check_photos) > 0) {
-                            // Jika ada foto yang terkait, tampilkan pesan peringatan atau lakukan tindakan yang sesuai
-                            echo 'Album tidak dapat dihapus karena terdapat foto yang terkait. Silakan hapus foto terlebih dahulu atau pindahkan foto ke album lain.';
-                            echo '<meta http-equiv="refresh" content="0.8; url=?url=album">';
-                        } else {
-                            // Jika tidak ada foto yang terkait, hapus album
-                            $hapus=mysqli_query($conn, "DELETE FROM album WHERE Id_Album = '$albumId'");
-                            if($hapus) {
-                                echo 'Berhasil Menghapus Album';
-                                echo '<meta http-equiv="refresh" content="0.8; url=?url=album">';
-                            } else {
-                                echo 'Gagal Menghapus Album';
-                                echo '<meta http-equiv="refresh" content="0.8; url=?url=album">';
+                            // Jika ada foto yang terkait, hapus semua foto tersebut bersama dengan like dan komentar
+                            while($photo = mysqli_fetch_assoc($check_photos)) {
+                                $photoId = $photo['Id_Foto'];
+                                
+                                // Hapus semua komentar yang terkait dengan foto
+                                $delete_comments = mysqli_query($conn, "DELETE FROM komentar WHERE Id_Foto = '$photoId'");
+                                if(!$delete_comments) {
+                                    echo 'Gagal menghapus komentar yang terkait.';
+                                    exit; // Stop execution if failed
+                                }
+                                
+                                // Hapus semua like yang terkait dengan foto
+                                $delete_likes = mysqli_query($conn, "DELETE FROM `like` WHERE Id_Foto = '$photoId'");
+                                if(!$delete_likes) {
+                                    echo 'Gagal menghapus like yang terkait.';
+                                    exit; // Stop execution if failed
+                                }
+                                
+                                // Hapus foto
+                                $delete_photo = mysqli_query($conn, "DELETE FROM foto WHERE Id_Foto = '$photoId'");
+                                if(!$delete_photo) {
+                                    echo 'Gagal menghapus foto.';
+                                    exit; // Stop execution if failed
+                                }
                             }
                         }
+                        
+                        // Setelah menghapus semua foto yang terkait, hapus album
+                        $hapus=mysqli_query($conn, "DELETE FROM album WHERE Id_Album = '$albumId'");
+                        if($hapus) {
+                            echo 'Berhasil Menghapus Album';
+                            echo '<meta http-equiv="refresh" content="0.8; url=?url=album">';
+                        } else {
+                            echo 'Gagal Menghapus Album';
+                            echo '<meta http-equiv="refresh" content="0.8; url=?url=album">';
+                        }
                     }
+                    
+                        
                     
 
                     $val = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM album WHERE Id_Album='$albumId'"));
@@ -94,7 +118,7 @@
             </div>
         </div>
 
-        <div class="col-7">
+        <div class="col-md-8 col-sm-8 col-xs-12">
             <div class="card">
                 <div class="card-body">
                     <table class="table table-hovered">
@@ -123,7 +147,7 @@
                                         <?= $album['Nama_Album'] ?>
                                     </td>
                                     <td>
-                                        <?= $album['Deskripsi'] ?>
+                                        <?= substr($album['Deskripsi'], 0, 20); ?>...
                                     </td>
                                     <td>
                                         <?= $album['Tgl_Dibuat'] ?>
