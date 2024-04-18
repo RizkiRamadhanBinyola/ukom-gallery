@@ -43,32 +43,32 @@
                                     user u ON a.Id_User = u.Id_User
 
                                     UNION
-SELECT
-    'Beri Komentar' AS Activity,
-    k.Isi_Komen AS Item,
-    k.Tgl_Komen AS Activity_Date,
-    f.Id_Foto AS Id_Foto, -- Kolom Id_Foto untuk aktivitas Beri Komentar
-    u.Username AS User
-FROM
-    komentar k
-JOIN
-    user u ON k.Id_User = u.Id_User
-JOIN
-    foto f ON k.Id_Foto = f.Id_Foto
-
-UNION
-SELECT
-    'Beri Like' AS Activity,
-    CONCAT('Foto: ', f.Judul_Foto) AS Item,
-    l.Tgl_Like AS Activity_Date,
-    f.Id_Foto AS Id_Foto, -- Kolom Id_Foto untuk aktivitas Beri Like
-    u.Username AS User
-FROM
-    `like` l
-JOIN
-    foto f ON l.Id_Foto = f.Id_Foto
-JOIN
-    user u ON l.Id_User = u.Id_User
+                                    SELECT
+                                        'Beri Komentar' AS Activity,
+                                        k.Isi_Komen AS Item,
+                                        k.Tgl_Komen AS Activity_Date,
+                                        f.Id_Foto AS Id_Foto, -- Kolom Id_Foto untuk aktivitas Beri Komentar
+                                        u.Username AS User
+                                    FROM
+                                        komentar k
+                                    JOIN
+                                        user u ON k.Id_User = u.Id_User
+                                    JOIN
+                                        foto f ON k.Id_Foto = f.Id_Foto
+                                    
+                                    UNION
+                                    SELECT
+                                        'Beri Like' AS Activity,
+                                        CONCAT('Foto: ', f.Judul_Foto) AS Item,
+                                        l.Tgl_Like AS Activity_Date,
+                                        f.Id_Foto AS Id_Foto, -- Kolom Id_Foto untuk aktivitas Beri Like
+                                        u.Username AS User
+                                    FROM
+                                        `like` l
+                                    JOIN
+                                        foto f ON l.Id_Foto = f.Id_Foto
+                                    JOIN
+                                        user u ON l.Id_User = u.Id_User
                                     
                                 ORDER BY
                                     Activity_Date DESC;
@@ -91,10 +91,12 @@ JOIN
                                         echo $row["Item"]; // Menampilkan nama album tanpa tautan
                                     } else {
                                         // Menampilkan nama foto dengan tautan ke detail foto
-                                        echo '<a href="?url=detail&&id=' . $row['Id_Foto'] . '" style="cursor: zoom-in;">' . $row["Item"] . '</a>';
+                                        echo '<a href="?url=detail&&id=' . $row['Id_Foto'] . '" class="text-primary">' . $row["Item"] . '</a>';
                                     }
                                     ?>
                                 </td>
+                                <td><?= date('Y-m-d', strtotime($row["Activity_Date"])) ?></td>
+
 
                                 <td><?= $row["User"] ?></td>
                             </tr>
