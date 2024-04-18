@@ -86,32 +86,28 @@
                     if (!isset ($_GET['edit'])):
                         ?>
                         <form action="?url=album" method="post">
-                            <div class="form-group">
-                                <label>Nama Album</label>
-                                <input type="text" class="form-control" required name="nama_album">
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" placeholder="Nama Album" required name="nama_album">
                             </div>
 
                             <div class="form-group">
-                                <label>Deskripsi Album</label>
-                                <textarea name="deskripsi_album" class="form-control" required cols="30"
+                                <textarea name="deskripsi_album" placeholder="Deskripsi Album" class="form-control" required cols="30"
                                     rows="5"></textarea>
                             </div>
 
-                            <input type="submit" value="Simpan" name="submit" class="btn btn-danger my-3">
+                            <input type="submit" value="Simpan" name="submit" class="btn btn-light border my-3 w-100">
                         </form>
                         <?php elseif (isset ($_GET['edit'])): ?>
                         <form action="?url=album&&edit&&albumid=<?= $val['Id_Album'] ?>" method="post">
-                            <div class="form-group">
-                                <label>Nama Album</label>
-                                <input type="text" class="form-control" value="<?= $val['Nama_Album']?>" required name="nama_album">
+                            <div class="form-group mb-3">                                
+                                <input type="text" placeholder="Nama Album" class="form-control" value="<?= $val['Nama_Album']?>" required name="nama_album">
                             </div>
 
-                            <div class="form-group">
-                                <label>Deskripsi Album</label>
-                                <textarea name="deskripsi_album" class="form-control"required cols="30" rows="5"><?= $val['Deskripsi']?></textarea>
+                            <div class="form-group">                                
+                                <textarea name="deskripsi_album" class="form-control" required cols="30" rows="5" placeholder="Deskripsi Album"><?= $val['Deskripsi']?></textarea>
                             </div>
 
-                            <input type="submit" value="Ubah" name="submit" class="btn btn-warning my-3">
+                            <input type="submit" value="Ubah" name="submit" class="btn btn-warning my-3 w-100">
                         </form>
                     <?php endif; ?>
                 </div>

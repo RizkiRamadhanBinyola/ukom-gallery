@@ -141,7 +141,7 @@ if (isset($_SESSION['user_id'])) {
                     </form>
                     <!-- Menampilkan Komentar -->
                     <div class="card mt-3">
-                        <div class="card-body" id="comment">
+                        <div class="card-body" id="scroll">
                             <?php
                             $query_komentar = mysqli_query($conn, "SELECT komentar.*, user.Nama_User FROM komentar INNER JOIN user ON komentar.Id_User = user.Id_User WHERE komentar.Id_Foto = '" . $data['Id_Foto'] . "' ORDER BY komentar.Tgl_Komen DESC");
 
@@ -165,7 +165,8 @@ if (isset($_SESSION['user_id'])) {
     <div class="container masonry">
         <?php
         // Mengambil data foto-foto lainnya secara acak dengan batasan 20 foto
-        $tampil_lainnya = mysqli_query($conn, "SELECT * FROM foto INNER JOIN user ON foto.Id_User=user.Id_User WHERE foto.Id_Foto != $id_foto ORDER BY RAND() LIMIT 20");
+        $tampil_lainnya = mysqli_query($conn, "SELECT * FROM foto INNER JOIN user ON foto.Id_User=user.Id_User WHERE foto.Id_Foto != $id_foto ORDER BY RAND() LIMIT 10");
+
         foreach ($tampil_lainnya as $foto_lainnya):
             ?>
             <div class="box content">

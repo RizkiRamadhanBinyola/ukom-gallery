@@ -26,3 +26,9 @@ if (isset($_GET['q'])) {
     echo "<h2>Please enter a search keyword</h2>";
 }
 ?>
+
+<form action="?url=search" method="GET" class="search-box">
+                <i class="uil uil-search search-icon"></i>
+                <input type="text" name="q" placeholder="Search here..." />
+                <button type="submit">Search</button>
+            </form>

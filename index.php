@@ -45,6 +45,7 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     <link
         href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -63,6 +64,7 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
                 <li><a href="?url=home">Home</a></li>
                 <li><a href="?url=upload">Upload</a></li>
                 <li><a href="?url=album">Album</a></li>
+                <li><a href="?url=form-report">ReportActivity</a></li>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?= ucwords($_SESSION['username']) ?>
@@ -74,15 +76,13 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
                     </ul>
                 </div>
             </ul>
-
             <i class="uil uil-search search-icon" id="searchIcon"></i>
             <!-- Di dalam tag form, ubah action menjadi "?url=search" dan method menjadi "GET" -->
-            <form action="?url=search" method="GET" class="search-box">
+            <div class="search-box">
                 <i class="uil uil-search search-icon"></i>
-                <input type="text" name="q" placeholder="Search here..." />
-                <button type="submit">Search</button>
-            </form>
-
+                <input type="text" name="s_keyword" id="s_keyword">
+                <div class="data card p-2 mt-3" id="scroll" style="max-height: 520px;"></div>
+            </div>
 
 
 
@@ -94,22 +94,25 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
         ?>
         <nav class="nav-home sticky-top">
             <i class="uil uil-bars navOpenBtn"></i>
-            <a href="#" class="logo">Galernih</a>
+            <a href="?url=home" class="logo">Galernih</a>
 
             <ul class="nav-links">
                 <i class="uil uil-times navCloseBtn"></i>
                 <li><a href="?url=home">Home</a></li>
+                <li><a href="?url=form-report">ReportActivity</a></li>
                 <li><a href="login">Login</a></li>
                 <li><a href="daftar">Daftar</a></li>
             </ul>
 
             <i class="uil uil-search search-icon" id="searchIcon"></i>
             <!-- Di dalam tag form, ubah action menjadi "?url=search" dan method menjadi "GET" -->
-            <form action="?url=search" method="GET" class="search-box">
+            <div class="search-box">
                 <i class="uil uil-search search-icon"></i>
-                <input type="text" name="q" placeholder="Search here..." />
-                <button type="submit">Search</button>
-            </form>
+                <input type="text" name="s_keyword" id="s_keyword">
+                <div class="data card p-2 mt-3" id="scroll" style="max-height: 520px;"></div>
+            </div>
+
+
 
 
 
@@ -133,6 +136,8 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
         include 'page/detail.php';
     } elseif ($url == 'search') {
         include 'page/search.php';
+    } elseif ($url == 'form-report') {
+        include 'page/report.php';
     } elseif ($url == 'logout') {
         session_destroy();
         header("Location: ?url=home");
@@ -143,9 +148,37 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     ?>
 
 
-
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            load_data();
+            function load_data(keyword) {
+                $.ajax({
+                    method: "POST",
+                    url: "data.php",
+                    data: { keyword: keyword },
+                    success: function (hasil) {
+                        $('.data').html(hasil);
+                    }
+                });
+            }
+            $('#s_keyword').keyup(function () {
+                var keyword = $("#s_keyword").val();
+                load_data(keyword);
+            });
+        });
+    </script>
     <script>
         const nav = document.querySelector(".nav-home"),
             searchIcon = document.querySelector("#searchIcon"),
