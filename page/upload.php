@@ -89,18 +89,26 @@
 
             } elseif (isset($_GET['hapus'])) {
                 $fotoid = $_GET['fotoid'];
+            
+                // Menghapus semua like terkait dengan foto
                 $delete_likes = mysqli_query($conn, "DELETE FROM `like` WHERE Id_Foto='$fotoid'");
-                if ($delete_likes) {
+            
+                // Menghapus semua komentar terkait dengan foto
+                $delete_comments = mysqli_query($conn, "DELETE FROM `komentar` WHERE Id_Foto='$fotoid'");
+            
+                // Memeriksa apakah kedua operasi di atas berhasil dilakukan
+                if ($delete_likes && $delete_comments) {
+                    // Jika berhasil, hapus foto itu sendiri
                     $delete_foto = mysqli_query($conn, "DELETE FROM foto WHERE Id_Foto='$fotoid'");
                     if ($delete_foto) {
-                        echo 'Gambar Berhasil di Hapus';
+                        echo 'Gambar Berhasil di Hapus bersama dengan semua like dan komentar terkait';
                         echo '<meta http-equiv="refresh" content="0.8; url=?url=profile">';
                     } else {
-                        echo 'Gambar gagal di Hapus';
+                        echo 'Gagal menghapus foto';
                         echo '<meta http-equiv="refresh" content="0.8; url=?url=profile">';
                     }
                 } else {
-                    echo 'Gagal menghapus like';
+                    echo 'Gagal menghapus like atau komentar';
                     echo '<meta http-equiv="refresh" content="0.8; url=?url=profile">';
                 }
             }
