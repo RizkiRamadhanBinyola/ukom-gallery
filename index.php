@@ -147,6 +147,13 @@ if (!isLoggedIn() && in_array($url, $protected_pages)) {
     }
     ?>
 
+    <!-- Footer menggunakan Bootstrap 5.3 -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 Photo Gallery. All rights reserved.</span>
+        </div>
+    </footer>
+
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
